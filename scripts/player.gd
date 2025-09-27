@@ -1,9 +1,10 @@
-extends Node
+extends Rigidbody2D
 
 @export var cam:Camera2D
-@export var rb:RigidBody2D
 
 func _process(delta: float) -> void:
 	#pass
-	cam.position.y = rb.position.y;
-	print(self.position.y);
+	cam.position.y = self.position.y;
+
+func _integrate_forces(delta: float) -> void:
+	pass

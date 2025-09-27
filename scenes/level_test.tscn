@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh8mvsfffkt22"]
+[gd_scene load_steps=15 format=3 uid="uid://bh8mvsfffkt22"]
 
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
@@ -37,11 +37,17 @@ height = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvmk3"]
 size = Vector2(4, 480)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbogn"]
+size = Vector2(192, 48)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d5kir"]
+size = Vector2(192, 48)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e73ws"]
-size = Vector2(64, 64)
+size = Vector2(48, 64)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8m37a"]
-size = Vector2(64, 64)
+size = Vector2(48, 64)
 
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("follow_camera")]
 script = ExtResource("1_vbogn")
@@ -77,14 +83,22 @@ shape = SubResource("RectangleShape2D_yvmk3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 100)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(300, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_vbogn")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = SubResource("PlaceholderTexture2D_d5kir")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
 position = Vector2(300, 100)
+script = ExtResource("1_e73ws")
+cam = NodePath("../Camera2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("RectangleShape2D_e73ws")
 
-[node name="Sprite2D2" type="Sprite2D" parent="RigidBody2D" node_paths=PackedStringArray("cam", "rb")]
+[node name="Sprite2D2" type="Sprite2D" parent="RigidBody2D"]
 texture = SubResource("PlaceholderTexture2D_8m37a")
-script = ExtResource("1_e73ws")
-cam = NodePath("../../Camera2D")
-rb = NodePath("..")
