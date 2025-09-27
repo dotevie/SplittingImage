@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bh8mvsfffkt22"]
+[gd_scene load_steps=17 format=3 uid="uid://bh8mvsfffkt22"]
 
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
@@ -37,11 +37,18 @@ height = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvmk3"]
 size = Vector2(4, 480)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbogn"]
+friction = 0.0
+bounce = 0.07
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbogn"]
 size = Vector2(192, 48)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d5kir"]
 size = Vector2(192, 48)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d5kir"]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e73ws"]
 size = Vector2(48, 64)
@@ -84,7 +91,8 @@ shape = SubResource("RectangleShape2D_yvmk3")
 position = Vector2(200, 100)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(300, 300)
+position = Vector2(254, 289)
+physics_material_override = SubResource("PhysicsMaterial_vbogn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_vbogn")
@@ -94,7 +102,11 @@ texture = SubResource("PlaceholderTexture2D_d5kir")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
 position = Vector2(300, 100)
+physics_material_override = SubResource("PhysicsMaterial_d5kir")
 can_sleep = false
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_e73ws")
 cam = NodePath("../Camera2D")
 
