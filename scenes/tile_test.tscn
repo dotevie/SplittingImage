@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=4 uid="uid://crmc7ataoua4w"]
+[gd_scene load_steps=20 format=4 uid="uid://crmc7ataoua4w"]
 
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_qdkxk"]
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="2_a8qe0"]
-[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="3_pnknc"]
-[ext_resource type="Texture2D" uid="uid://doufm1s6vp0nr" path="res://sprites/tile.png" id="4_06164"]
+[ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="4_06164"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -57,17 +56,6 @@ size = Vector2(192, 24)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d5kir"]
 size = Vector2(192, 24)
-
-[sub_resource type="Gradient" id="Gradient_rit06"]
-colors = PackedColorArray(1, 0.33333334, 0, 1, 1, 0.33333334, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_plvai"]
-gradient = SubResource("Gradient_rit06")
-width = 32
-height = 32
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkcgd"]
-size = Vector2(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkcgd"]
 texture = ExtResource("4_06164")
@@ -171,7 +159,7 @@ physics_material_override = SubResource("PhysicsMaterial_d5kir")
 can_sleep = false
 lock_rotation = true
 contact_monitor = true
-max_contacts_reported = 2
+max_contacts_reported = 8
 script = ExtResource("2_a8qe0")
 cam = NodePath("../Camera2D")
 
@@ -200,21 +188,6 @@ shape = SubResource("RectangleShape2D_vbogn")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 texture = SubResource("PlaceholderTexture2D_d5kir")
-
-[node name="HazardTest" type="Area2D" parent="."]
-position = Vector2(57, 236)
-rotation = 0.7853982
-collision_layer = 4
-script = ExtResource("3_pnknc")
-
-[node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
-visible = false
-scale = Vector2(0.99999994, 0.99999994)
-texture = SubResource("GradientTexture2D_plvai")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest"]
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_vkcgd")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAXACUAAQACAAIAAAAWACUAAQABAAIAAAAVACUAAQABAAIAAAAVACQAAQABAAEAAAAWACQAAQABAAEAAAAXACQAAQACAAEAAAAXACMAAQACAAEAAAAWACMAAQABAAEAAAAVACMAAQABAAAAAAAUACMAAQAAAAAAAAAUACQAAQAAAAEAAAAUACUAAQAAAAIAAAAWACIAAQAAAAEAAAAXACIAAQABAAEAAAAYACIAAQACAAIAAAAYACEAAQACAAAAAAAXACEAAQABAAAAAAAWACEAAQAAAAAAAAAQACIAAQACAAAAAAAPACIAAQABAAAAAAAOACIAAQABAAAAAAAOACMAAQABAAEAAAANACMAAQABAAEAAAANACIAAQABAAAAAAAPACMAAQABAAEAAAAQACMAAQACAAEAAAAQACQAAQACAAIAAAAPACQAAQABAAIAAAAOACQAAQABAAIAAAANACQAAQABAAIAAAAMACQAAQABAAIAAAAMACMAAQABAAEAAAAMACIAAQABAAAAAAALACIAAQAAAAAAAAALACMAAQAAAAEAAAALACQAAQAAAAIAAAATACcAAQACAAEAAAASACcAAQABAAAAAAARACcAAQAAAAAAAAARACgAAQAAAAIAAAASACgAAQABAAIAAAATACgAAQACAAIAAAAGACYAAQAAAAAAAAAHACYAAQABAAAAAAAIACYAAQABAAAAAAAJACYAAQABAAAAAAAKACYAAQABAAAAAAALACYAAQABAAAAAAAMACYAAQABAAAAAAANACYAAQACAAAAAAANACcAAQACAAEAAAAMACcAAQABAAEAAAALACcAAQABAAEAAAAKACcAAQABAAEAAAAJACcAAQABAAEAAAAIACcAAQABAAEAAAAHACcAAQABAAEAAAAGACcAAQAAAAEAAAAGACgAAQAAAAIAAAAHACgAAQABAAIAAAAIACgAAQABAAEAAAAJACgAAQABAAEAAAAKACgAAQABAAEAAAALACgAAQABAAEAAAAMACgAAQABAAIAAAANACgAAQACAAIAAAAKACkAAQABAAEAAAAJACkAAQABAAEAAAAIACkAAQAAAAEAAAAIACoAAQAAAAIAAAAJACoAAQABAAIAAAAKACoAAQABAAIAAAALACoAAQACAAIAAAALACkAAQACAAEAAAAPACwAAQACAAAAAAAOACwAAQABAAAAAAANACwAAQABAAAAAAAMACwAAQAAAAAAAAAMAC0AAQABAAEAAAANAC0AAQABAAEAAAAOAC0AAQABAAEAAAAPAC0AAQABAAEAAAAPAC4AAQABAAEAAAAOAC4AAQABAAEAAAANAC4AAQABAAEAAAAMAC4AAQABAAEAAAAQAC0AAQACAAAAAAAQAC4AAQACAAEAAAAQAC8AAQACAAIAAAAPAC8AAQABAAEAAAALAC0AAQAAAAAAAAALAC4AAQAAAAEAAAALAC8AAQAAAAIAAAAMAC8AAQABAAEAAAANAC8AAQABAAEAAAAOAC8AAQABAAEAAAAPADAAAQACAAIAAAAOADAAAQABAAIAAAANADAAAQABAAIAAAAMADAAAQAAAAIAAAA=")

@@ -34,16 +34,16 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	# Find the floor (a contact with upwards facing collision normal).
 	var found_floor := false
-	# var floor_index := -1
+	var floor_index := -1
 	
 	# check for grounded
 	for contact_index in state.get_contact_count():
 		var collision_normal = state.get_contact_local_normal(contact_index)
-		# print(collision_normal)
 		
 		if collision_normal.dot(Vector2(0, -1)) > 0.6:
 			found_floor = true
-			# floor_index = contact_index
+			floor_index = contact_index
+	# print(state.get_contact_count())
 
 	if found_floor:
 		airborne_time = 0.0
