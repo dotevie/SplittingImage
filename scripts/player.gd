@@ -1,16 +1,14 @@
 class_name Player extends RigidBody2D
 
 @export var cam:Camera2D
-
 var parent_scene:BaseScene
-
-const FLOOR_ACCEL = 1000
-const FLOOR_DEACCEL = 500
+const FLOOR_ACCEL = 2000
+const FLOOR_DEACCEL = 2000
 const AIR_ACCEL = 800
 const AIR_DEACCEL = 400
 const MAX_VELOCITY = 256
-const JUMP_VELOCITY = 512
-const STOP_JUMP_FORCE = 4096
+const JUMP_VELOCITY = 600
+const STOP_JUMP_FORCE = 3000
 const COYOTE_TIME = 0.1
 
 var airborne_time: float = 0.0
@@ -30,6 +28,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# player input
 	var move_left := Input.is_action_pressed("move_left")
 	var move_right := Input.is_action_pressed("move_right")
+	var start_jump := Input.is_action_just_pressed("jump")
 	var jump := Input.is_action_pressed("jump")
 	
 	# Find the floor (a contact with upwards facing collision normal).
@@ -62,30 +61,40 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if on_floor:
 		# Process logic when character is on floor.
 		if move_left and not move_right:
-			velocity.x = maxf(-MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
+			if velocity.x <= 0:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
+			else:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - (FLOOR_ACCEL + FLOOR_DEACCEL)*step)
 		elif move_right and not move_left:
-			velocity.x = minf(MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
+			if velocity.x >= 0:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
+			else:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + (FLOOR_ACCEL + FLOOR_DEACCEL)*step)
 		else:
 			#reduce magnitude of horizontal movement by floor deaccel
-			velocity.x = signf(velocity.x) * minf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
+			velocity.x = signf(velocity.x) * maxf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
 
 		# Check jump.
-		if not jumping and jump:
+		if not jumping and start_jump:
 			velocity.y = -JUMP_VELOCITY
 			jumping = true
+			
 	else:
 		# Process logic when the character is in the air.
 		if move_left and not move_right:
-			velocity.x = maxf(-MAX_VELOCITY,velocity.x - AIR_ACCEL*step)
+			if velocity.x <= 0:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - AIR_ACCEL*step)
+			else:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - (AIR_ACCEL + AIR_DEACCEL)*step)
 		elif move_right and not move_left:
-			velocity.x = minf(MAX_VELOCITY,velocity.x + AIR_ACCEL*step)
+			if velocity.x >= 0:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + AIR_ACCEL*step)
+			else:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + (AIR_ACCEL + AIR_DEACCEL)*step)
 		else:
-			#reduce magnitude of horizontal movement by floor deaccel
-			velocity.x = signf(velocity.x) * minf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
-
+			#reduce magnitude of horizontal movement by air deaccel
+			velocity.x = signf(velocity.x) * maxf(absf(velocity.x) - AIR_DEACCEL*step,0)
 	
-	if jump and on_floor:
-		velocity.y = -JUMP_VELOCITY
 	velocity += state.get_total_gravity() * step
 	state.set_linear_velocity(velocity)
 	
