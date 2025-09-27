@@ -113,6 +113,7 @@ texture = SubResource("PlaceholderTexture2D_d5kir")
 [node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
 position = Vector2(300, 100)
 physics_material_override = SubResource("PhysicsMaterial_d5kir")
+gravity_scale = 0.75
 can_sleep = false
 lock_rotation = true
 contact_monitor = true
