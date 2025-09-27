@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="XOR"
-run/main_scene="res://test_scene.tscn"
+run/main_scene="uid://684quwbxvay7"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -50,5 +50,6 @@ jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
