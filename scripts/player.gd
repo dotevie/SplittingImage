@@ -29,7 +29,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	for contact_index in state.get_contact_count():
 		var collision_normal = state.get_contact_local_normal(contact_index)
-		print(collision_normal)
+		# print(collision_normal)
 		
 		if collision_normal.dot(Vector2(0, -1)) > 0.6:
 			found_floor = true
