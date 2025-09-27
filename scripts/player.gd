@@ -4,7 +4,7 @@ extends RigidBody2D
 
 const FLOOR_ACCEL = 1024
 const FLOOR_DEACCEL = 2048
-const FLOOR_MAX_VELOCITY = 256
+const MAX_VELOCITY = 256
 const JUMP_VELOCITY = 512
 const COYOTE_TIME = 0.1
 
@@ -43,9 +43,9 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var on_floor := airborne_time < COYOTE_TIME
 	
 	if move_left and not move_right:
-		velocity.x = maxf(-FLOOR_MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
+		velocity.x = maxf(-MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
 	if move_right and not move_left:
-		velocity.x = minf(FLOOR_MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
+		velocity.x = minf(MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
 	if not move_right and not move_left:
 		velocity.x = signf(velocity.x) * minf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
 	if jump and on_floor:
