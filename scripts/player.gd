@@ -2,8 +2,8 @@ class_name Player extends RigidBody2D
 
 @export var cam:Camera2D
 
-const FLOOR_ACCEL = 1000
-const FLOOR_DEACCEL = 500
+const FLOOR_ACCEL = 2000
+const FLOOR_DEACCEL = 2000
 const AIR_ACCEL = 800
 const AIR_DEACCEL = 400
 const MAX_VELOCITY = 256
@@ -58,12 +58,18 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if on_floor:
 		# Process logic when character is on floor.
 		if move_left and not move_right:
-			velocity.x = maxf(-MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
+			if velocity.x <= 0:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - FLOOR_ACCEL*step)
+			else:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - (FLOOR_ACCEL + FLOOR_DEACCEL)*step)
 		elif move_right and not move_left:
-			velocity.x = minf(MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
+			if velocity.x >= 0:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + FLOOR_ACCEL*step)
+			else:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + (FLOOR_ACCEL + FLOOR_DEACCEL)*step)
 		else:
 			#reduce magnitude of horizontal movement by floor deaccel
-			velocity.x = signf(velocity.x) * minf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
+			velocity.x = signf(velocity.x) * maxf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
 
 		# Check jump.
 		if not jumping and start_jump:
@@ -73,12 +79,18 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	else:
 		# Process logic when the character is in the air.
 		if move_left and not move_right:
-			velocity.x = maxf(-MAX_VELOCITY,velocity.x - AIR_ACCEL*step)
+			if velocity.x <= 0:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - AIR_ACCEL*step)
+			else:
+				velocity.x = maxf(-MAX_VELOCITY,velocity.x - (AIR_ACCEL + AIR_DEACCEL)*step)
 		elif move_right and not move_left:
-			velocity.x = minf(MAX_VELOCITY,velocity.x + AIR_ACCEL*step)
+			if velocity.x >= 0:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + AIR_ACCEL*step)
+			else:
+				velocity.x = minf(MAX_VELOCITY,velocity.x + (AIR_ACCEL + AIR_DEACCEL)*step)
 		else:
-			#reduce magnitude of horizontal movement by floor deaccel
-			velocity.x = signf(velocity.x) * minf(absf(velocity.x) - FLOOR_DEACCEL*step,0)
+			#reduce magnitude of horizontal movement by air deaccel
+			velocity.x = signf(velocity.x) * maxf(absf(velocity.x) - AIR_DEACCEL*step,0)
 	
 	velocity += state.get_total_gravity() * step
 	state.set_linear_velocity(velocity)
