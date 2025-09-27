@@ -2,11 +2,11 @@ class_name Player extends RigidBody2D
 
 @export var cam:Camera2D
 var parent_scene:BaseScene
-const FLOOR_ACCEL = 2000
+const FLOOR_ACCEL = 4000
 const FLOOR_DEACCEL = 2000
-const AIR_ACCEL = 800
+const AIR_ACCEL = 1000
 const AIR_DEACCEL = 400
-const MAX_VELOCITY = 256
+const MAX_VELOCITY = 200
 const JUMP_VELOCITY = 600
 const STOP_JUMP_FORCE = 3000
 const COYOTE_TIME = 0.1
