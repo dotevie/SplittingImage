@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://bh8mvsfffkt22"]
+
+[ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
+[ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
+
+[sub_resource type="Gradient" id="Gradient_8m37a"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.55, 0.55, 0.55, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e73ws"]
+gradient = SubResource("Gradient_8m37a")
+width = 400
+height = 1920
+fill = 2
+
+[sub_resource type="Gradient" id="Gradient_6adnx"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vbogn"]
+gradient = SubResource("Gradient_6adnx")
+width = 1
+height = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5kir"]
+size = Vector2(4, 480)
+
+[sub_resource type="Gradient" id="Gradient_plvai"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vkcgd"]
+gradient = SubResource("Gradient_plvai")
+width = 1
+height = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvmk3"]
+size = Vector2(4, 480)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e73ws"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8m37a"]
+size = Vector2(64, 64)
+
+[node name="LevelTest" type="Node2D" node_paths=PackedStringArray("follow_camera")]
+script = ExtResource("1_vbogn")
+follow_camera = NodePath("Camera2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(200, 960)
+texture = SubResource("GradientTexture2D_e73ws")
+
+[node name="Wall2" type="Sprite2D" parent="."]
+position = Vector2(398, 960)
+scale = Vector2(4, 1920)
+texture = SubResource("GradientTexture2D_vbogn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall2"]
+scale = Vector2(0.25, 0.0020833334)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_d5kir")
+
+[node name="Wall" type="Sprite2D" parent="."]
+position = Vector2(2, 960)
+scale = Vector2(4, 1920)
+texture = SubResource("GradientTexture2D_vkcgd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
+scale = Vector2(0.25, 0.0020833334)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D"]
+position = Vector2(0, 0.24999619)
+shape = SubResource("RectangleShape2D_yvmk3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(200, 100)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(300, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_e73ws")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RigidBody2D" node_paths=PackedStringArray("cam", "rb")]
+texture = SubResource("PlaceholderTexture2D_8m37a")
+script = ExtResource("1_e73ws")
+cam = NodePath("../../Camera2D")
+rb = NodePath("..")
