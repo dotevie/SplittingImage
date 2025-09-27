@@ -94,6 +94,7 @@ texture = SubResource("PlaceholderTexture2D_d5kir")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
 position = Vector2(300, 100)
+can_sleep = false
 script = ExtResource("1_e73ws")
 cam = NodePath("../Camera2D")
 
