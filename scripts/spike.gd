@@ -5,6 +5,5 @@ func _ready() -> void:
 	body_entered.connect(on_body_enter)
 	
 func on_body_enter(body:Node2D) -> void:
-	print(body)
 	if (body.is_in_group("player")):
 		BaseScene.instance.die()
