@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bh8mvsfffkt22"]
+[gd_scene load_steps=20 format=3 uid="uid://bh8mvsfffkt22"]
 
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
+[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="3_d5kir"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -53,6 +54,17 @@ size = Vector2(192, 24)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d5kir"]
 size = Vector2(192, 24)
 
+[sub_resource type="Gradient" id="Gradient_rit06"]
+colors = PackedColorArray(1, 0.33333334, 0, 1, 1, 0.33333334, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_plvai"]
+gradient = SubResource("Gradient_rit06")
+width = 32
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkcgd"]
+size = Vector2(32, 32)
+
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_vbogn")
 player = NodePath("Player")
@@ -87,7 +99,7 @@ shape = SubResource("RectangleShape2D_yvmk3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 100)
 
-[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
+[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
 can_sleep = false
 lock_rotation = true
@@ -121,3 +133,18 @@ shape = SubResource("RectangleShape2D_vbogn")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 texture = SubResource("PlaceholderTexture2D_d5kir")
+
+[node name="HazardTest" type="Area2D" parent="."]
+position = Vector2(57, 236)
+rotation = 0.7853982
+collision_layer = 4
+script = ExtResource("3_d5kir")
+
+[node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
+visible = false
+scale = Vector2(0.99999994, 0.99999994)
+texture = SubResource("GradientTexture2D_plvai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest"]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_vkcgd")

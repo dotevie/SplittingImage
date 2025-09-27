@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvenbyrewsoxx"]
+[gd_scene load_steps=20 format=3 uid="uid://cvenbyrewsoxx"]
 
 [ext_resource type="Script" uid="uid://deqbu2ovcw5mj" path="res://scripts/mirror_scene.gd" id="1_eabhs"]
+[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="2_eabhs"]
 [ext_resource type="Script" uid="uid://ckmqrvk015bss" path="res://scripts/mirror_player.gd" id="2_rit06"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
@@ -13,11 +14,17 @@ width = 400
 height = 1920
 fill = 2
 
-[sub_resource type="Gradient" id="Gradient_xfjim"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8m37a"]
+size = Vector2(24, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plvai"]
+size = Vector2(24, 32)
+
+[sub_resource type="Gradient" id="Gradient_rit06"]
 colors = PackedColorArray(1, 0.33333334, 0, 1, 1, 0.33333334, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_eabhs"]
-gradient = SubResource("Gradient_xfjim")
+gradient = SubResource("Gradient_rit06")
 width = 32
 height = 32
 
@@ -48,12 +55,6 @@ height = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvmk3"]
 size = Vector2(4, 480)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8m37a"]
-size = Vector2(24, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_plvai"]
-size = Vector2(24, 32)
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbogn"]
 friction = 0.0
 bounce = 0.07
@@ -72,15 +73,34 @@ mirror_player = NodePath("Player")
 position = Vector2(200, 960)
 texture = SubResource("GradientTexture2D_e73ws")
 
-[node name="HazardTest" type="StaticBody2D" parent="."]
+[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
+position = Vector2(300, 100.000015)
+collision_layer = 5
+can_sleep = false
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("2_rit06")
+cam = NodePath("../Camera2D")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player"]
+texture = SubResource("PlaceholderTexture2D_8m37a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_plvai")
+
+[node name="HazardTest" type="Area2D" parent="."]
 position = Vector2(57, 236)
 rotation = 0.7853982
-collision_layer = 2
+collision_layer = 4
+script = ExtResource("2_eabhs")
 
 [node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
+scale = Vector2(0.99999994, 0.99999994)
 texture = SubResource("GradientTexture2D_eabhs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest" groups=["ouch"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest"]
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_rit06")
 
 [node name="Wall2" type="Sprite2D" parent="."]
@@ -109,23 +129,9 @@ shape = SubResource("RectangleShape2D_yvmk3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 100)
 
-[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam")]
-position = Vector2(300, 100)
-can_sleep = false
-lock_rotation = true
-contact_monitor = true
-max_contacts_reported = 2
-script = ExtResource("2_rit06")
-cam = NodePath("../Camera2D")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Player"]
-texture = SubResource("PlaceholderTexture2D_8m37a")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_plvai")
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(307, 289)
+collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_vbogn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -136,6 +142,7 @@ texture = SubResource("PlaceholderTexture2D_d5kir")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(78, 245)
+collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_vbogn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]

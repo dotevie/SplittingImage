@@ -21,8 +21,9 @@ func _process(_delta: float) -> void:
 func die():
 	queue_free()
 
+var velocity:Vector2;
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var velocity := state.get_linear_velocity()
+	velocity = state.get_linear_velocity()
 	var step := state.get_step()
 	
 	# player input
@@ -97,6 +98,3 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	velocity += state.get_total_gravity() * step
 	state.set_linear_velocity(velocity)
-	
-	
-	
