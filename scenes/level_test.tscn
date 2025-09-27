@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bh8mvsfffkt22"]
+[gd_scene load_steps=21 format=3 uid="uid://bh8mvsfffkt22"]
 
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
@@ -37,6 +37,9 @@ height = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvmk3"]
 size = Vector2(4, 480)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d5kir"]
+friction = 0.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8m37a"]
 size = Vector2(24, 32)
@@ -101,6 +104,7 @@ position = Vector2(200, 100)
 
 [node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
+physics_material_override = SubResource("PhysicsMaterial_d5kir")
 can_sleep = false
 lock_rotation = true
 contact_monitor = true
