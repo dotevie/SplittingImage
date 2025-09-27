@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvenbyrewsoxx"]
+[gd_scene load_steps=19 format=3 uid="uid://cvenbyrewsoxx"]
 
 [ext_resource type="Script" uid="uid://deqbu2ovcw5mj" path="res://scripts/mirror_scene.gd" id="1_eabhs"]
 [ext_resource type="Script" uid="uid://ckmqrvk015bss" path="res://scripts/mirror_player.gd" id="2_rit06"]
@@ -12,6 +12,17 @@ gradient = SubResource("Gradient_8m37a")
 width = 400
 height = 1920
 fill = 2
+
+[sub_resource type="Gradient" id="Gradient_xfjim"]
+colors = PackedColorArray(1, 0.33333334, 0, 1, 1, 0.33333334, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eabhs"]
+gradient = SubResource("Gradient_xfjim")
+width = 32
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rit06"]
+size = Vector2(32, 32)
 
 [sub_resource type="Gradient" id="Gradient_6adnx"]
 offsets = PackedFloat32Array(0)
@@ -61,6 +72,17 @@ mirror_player = NodePath("Player")
 position = Vector2(200, 960)
 texture = SubResource("GradientTexture2D_e73ws")
 
+[node name="HazardTest" type="StaticBody2D" parent="."]
+position = Vector2(57, 236)
+rotation = 0.7853982
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
+texture = SubResource("GradientTexture2D_eabhs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest" groups=["ouch"]]
+shape = SubResource("RectangleShape2D_rit06")
+
 [node name="Wall2" type="Sprite2D" parent="."]
 position = Vector2(398, 960)
 scale = Vector2(4, 1920)
@@ -91,7 +113,8 @@ position = Vector2(200, 100)
 position = Vector2(300, 100)
 can_sleep = false
 lock_rotation = true
-max_contacts_reported = 1
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("2_rit06")
 cam = NodePath("../Camera2D")
 

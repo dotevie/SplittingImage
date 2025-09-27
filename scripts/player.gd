@@ -2,6 +2,8 @@ class_name Player extends RigidBody2D
 
 @export var cam:Camera2D
 
+var parent_scene:BaseScene
+
 const FLOOR_ACCEL = 1000
 const FLOOR_DEACCEL = 500
 const AIR_ACCEL = 800
@@ -17,6 +19,9 @@ var jumping = false
 func _process(_delta: float) -> void:
 	#pass
 	cam.position.y = self.position.y;
+	
+func die():
+	queue_free()
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity := state.get_linear_velocity()
@@ -83,5 +88,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		velocity.y = -JUMP_VELOCITY
 	velocity += state.get_total_gravity() * step
 	state.set_linear_velocity(velocity)
+	
 	
 	
