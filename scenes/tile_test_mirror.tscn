@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=4 uid="uid://bh8mvsfffkt22"]
+[gd_scene load_steps=24 format=4 uid="uid://c43o32b6p1t5w"]
 
-[ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="1_e73ws"]
-[ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_vbogn"]
-[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="3_d5kir"]
-[ext_resource type="Texture2D" uid="uid://doufm1s6vp0nr" path="res://sprites/tile.png" id="4_plvai"]
+[ext_resource type="Script" uid="uid://deqbu2ovcw5mj" path="res://scripts/mirror_scene.gd" id="1_460vc"]
+[ext_resource type="Script" uid="uid://ckmqrvk015bss" path="res://scripts/mirror_player.gd" id="2_b18ba"]
+[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="3_h08sc"]
+[ext_resource type="Texture2D" uid="uid://doufm1s6vp0nr" path="res://sprites/tile.png" id="4_xy3na"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -70,7 +70,7 @@ height = 32
 size = Vector2(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkcgd"]
-texture = ExtResource("4_plvai")
+texture = ExtResource("4_xy3na")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -131,9 +131,9 @@ terrain_set_0/terrain_0/name = "Basic"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/1 = SubResource("TileSetAtlasSource_vkcgd")
 
-[node name="LevelTest" type="Node2D" node_paths=PackedStringArray("player")]
-script = ExtResource("1_vbogn")
-player = NodePath("Player")
+[node name="TileTestMirror" type="Node2D" node_paths=PackedStringArray("mirror_player")]
+script = ExtResource("1_460vc")
+mirror_player = NodePath("MirrorPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(200, 960)
@@ -165,20 +165,20 @@ shape = SubResource("RectangleShape2D_yvmk3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 100)
 
-[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
+[node name="MirrorPlayer" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
 physics_material_override = SubResource("PhysicsMaterial_d5kir")
 can_sleep = false
 lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 2
-script = ExtResource("1_e73ws")
+script = ExtResource("2_b18ba")
 cam = NodePath("../Camera2D")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Player"]
+[node name="Sprite2D2" type="Sprite2D" parent="MirrorPlayer"]
 texture = SubResource("PlaceholderTexture2D_8m37a")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorPlayer"]
 shape = SubResource("RectangleShape2D_plvai")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -205,7 +205,7 @@ texture = SubResource("PlaceholderTexture2D_d5kir")
 position = Vector2(57, 236)
 rotation = 0.7853982
 collision_layer = 4
-script = ExtResource("3_d5kir")
+script = ExtResource("3_h08sc")
 
 [node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
 visible = false
