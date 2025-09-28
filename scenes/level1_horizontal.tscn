@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://bkuet8lrbw4ea"]
+[gd_scene load_steps=72 format=4 uid="uid://bkuet8lrbw4ea"]
 
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_d4nj3"]
 [ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="1_njykt"]
@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_nl2xb"]
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="2_wvvcr"]
 [ext_resource type="Texture2D" uid="uid://bfeg1s6wmlr6x" path="res://sprites/spike_16.png" id="4_n15t4"]
-[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="7_d4nj3"]
-[ext_resource type="Texture2D" uid="uid://6ndj7u7wcw61" path="res://sprites/spike_8.png" id="7_fdh75"]
 [ext_resource type="Texture2D" uid="uid://bfo75a70le623" path="res://sprites/player_idle_purple.png" id="5_fl80h"]
 [ext_resource type="Texture2D" uid="uid://je5nsc03a3q5" path="res://sprites/player_idle_purple_left.png" id="6_38bd2"]
 [ext_resource type="Texture2D" uid="uid://bxxollgf3awcs" path="res://sprites/player_jump_purple.png" id="7_4vp6r"]
+[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="7_d4nj3"]
+[ext_resource type="Texture2D" uid="uid://6ndj7u7wcw61" path="res://sprites/spike_8.png" id="7_fdh75"]
 [ext_resource type="Texture2D" uid="uid://cemn4xbs6fydt" path="res://sprites/player_walk_cycle_purple.png" id="7_fl80h"]
 [ext_resource type="Texture2D" uid="uid://dxpsbo6hr2gto" path="res://sprites/player_jump_purple_left.png" id="8_wxfxa"]
 [ext_resource type="Texture2D" uid="uid://rb3y868y4hhq" path="res://sprites/player_walk_cycle_purple_left.png" id="10_rta8u"]
@@ -610,9 +610,6 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 16
 script = ExtResource("2_wvvcr")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Player"]
-texture = SubResource("PlaceholderTexture2D_d4nj3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 visible = false

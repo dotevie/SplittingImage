@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="XOR"
-run/main_scene="uid://bkuet8lrbw4ea"
+run/main_scene="uid://b4gomfcimhq61"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
