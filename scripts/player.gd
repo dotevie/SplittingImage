@@ -1,5 +1,7 @@
 class_name Player extends RigidBody2D
 
+@onready var _animated_sprite = $AnimatedSprite2D
+
 @export var cam:Camera2D
 var parent_scene:BaseScene
 const FLOOR_ACCEL = 4000
@@ -13,8 +15,27 @@ const COYOTE_TIME = 0.1
 
 var airborne_time: float = 0.0
 var jumping = false
+var face_left = false
 
 func _process(_delta: float) -> void:
+	if Input.is_action_pressed("ui_right") and not jumping:
+		_animated_sprite.play("walk")
+		face_left = false
+	elif Input.is_action_pressed("ui_left") and not jumping:
+		_animated_sprite.play("walk_left")
+		face_left = true
+	elif jumping:
+		if not face_left:
+			_animated_sprite.play("jump_ascend")
+			_animated_sprite.play("jump_arc")
+		else:
+			_animated_sprite.play("jump_ascend_left")
+			_animated_sprite.play("jump_arc_left")
+	else:
+		if not face_left:
+			_animated_sprite.play("idle")
+		else:
+			_animated_sprite.play("idle_left")
 	pass
 	#cam.position.y = self.position.y;
 	
