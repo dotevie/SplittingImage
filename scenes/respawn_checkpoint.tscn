@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvl5rrq8cmaia"]
+
+[ext_resource type="Script" uid="uid://v4t05ay827jm" path="res://scripts/respawn_area.gd" id="1_nnrmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnrmn"]
+size = Vector2(64, 48)
+
+[node name="RespawnCheckpoint" type="Node2D"]
+
+[node name="RespawnArea" type="Area2D" parent="."]
+script = ExtResource("1_nnrmn")
+metadata/_custom_type_script = "uid://v4t05ay827jm"
+
+[node name="RespawnPoint" type="Node2D" parent="RespawnArea"]
+position = Vector2(0, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnArea"]
+shape = SubResource("RectangleShape2D_nnrmn")

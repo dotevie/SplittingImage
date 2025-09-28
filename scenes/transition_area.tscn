@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://db43r6kwkeoq1"]
+
+[ext_resource type="Script" uid="uid://d23yqpxksvuql" path="res://scripts/transition_area.gd" id="1_5art3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnrmn"]
+size = Vector2(64, 48)
+
+[node name="TransitionArea" type="Area2D"]
+script = ExtResource("1_5art3")
+metadata/_custom_type_script = "uid://v4t05ay827jm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nnrmn")

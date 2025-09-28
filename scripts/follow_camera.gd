@@ -14,4 +14,10 @@ func _process(delta:float) -> void:
 	if (horizontal):
 		self.position.x = lerpf(snap_start if follow.position.x < snap_start else snap_end if follow.position.x > snap_end else follow.position.x, self.position.x, 1 - (delta * 9))
 	else:
-		self.position.y = lerpf(follow.position.y, self.position.y, 1 - (delta * 9))
+		self.position.y = lerpf(snap_start if follow.position.x < snap_start else snap_end if follow.position.y > snap_end else follow.position.y, self.position.y, 1 - (delta * 9))
+
+func snap():
+	if (horizontal):
+		self.position.x = snap_start if follow.position.x < snap_start else snap_end if follow.position.x > snap_end else follow.position.x;
+	else:
+		self.position.y = snap_start if follow.position.x < snap_start else snap_end if follow.position.y > snap_end else follow.position.y;

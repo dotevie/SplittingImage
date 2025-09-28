@@ -20,6 +20,7 @@ var face_left = false
 func _process(_delta: float) -> void:
 	if (self.position.y >= 500):
 		BaseScene.instance.die()
+	if (_animated_sprite == null): return;
 	if Input.is_action_pressed("ui_right") and not jumping:
 		_animated_sprite.play("walk")
 		face_left = false

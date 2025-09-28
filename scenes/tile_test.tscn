@@ -154,10 +154,11 @@ gradient = SubResource("Gradient_pnknc")
 width = 24
 height = 16
 
-[node name="TileTest" type="Node2D" node_paths=PackedStringArray("player", "camera")]
+[node name="TileTest" type="Node2D" node_paths=PackedStringArray("player", "camera", "default_spawn_point")]
 script = ExtResource("1_qdkxk")
 player = NodePath("Player")
 camera = NodePath("Camera2D")
+default_spawn_point = NodePath("SpawnPoint")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(200, 960)
@@ -190,6 +191,7 @@ shape = SubResource("RectangleShape2D_yvmk3")
 position = Vector2(200, 100)
 script = ExtResource("2_pnknc")
 follow = NodePath("../Player")
+snap_end = 10000.0
 
 [node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
@@ -254,3 +256,5 @@ shape = SubResource("RectangleShape2D_a8qe0")
 
 [node name="Sprite2D" type="Sprite2D" parent="DoorButton"]
 texture = SubResource("GradientTexture2D_06164")
+
+[node name="SpawnPoint" type="Node2D" parent="."]
