@@ -1,10 +1,11 @@
-[gd_scene load_steps=83 format=4 uid="uid://bkuet8lrbw4ea"]
+[gd_scene load_steps=86 format=4 uid="uid://bkuet8lrbw4ea"]
 
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_d4nj3"]
 [ext_resource type="Texture2D" uid="uid://bo1uggbanm8cx" path="res://sprites/tile.png" id="1_njykt"]
 [ext_resource type="Texture2D" uid="uid://c8dipe0r2hepq" path="res://sprites/wall_texture_32.png" id="2_fl80h"]
 [ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_nl2xb"]
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="2_wvvcr"]
+[ext_resource type="Texture2D" uid="uid://dcglr3g05jlcx" path="res://sprites/hanging_plant.png" id="4_hejpe"]
 [ext_resource type="Texture2D" uid="uid://bfeg1s6wmlr6x" path="res://sprites/spike_16.png" id="4_n15t4"]
 [ext_resource type="Texture2D" uid="uid://bfo75a70le623" path="res://sprites/player_idle_purple.png" id="5_fl80h"]
 [ext_resource type="Texture2D" uid="uid://je5nsc03a3q5" path="res://sprites/player_idle_purple_left.png" id="6_38bd2"]
@@ -21,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://db43r6kwkeoq1" path="res://scenes/transition_area.tscn" id="18_8vgk6"]
 [ext_resource type="Texture2D" uid="uid://ditwxpr4r2bco" path="res://sprites/button-unpressed.png" id="19_4b3ty"]
 [ext_resource type="Texture2D" uid="uid://b0kai8bpon5ww" path="res://sprites/button-pressed.png" id="21_ugxyh"]
+[ext_resource type="Texture2D" uid="uid://lb7ghwh4m0cs" path="res://sprites/bookshelf.png" id="22_604eb"]
+[ext_resource type="Texture2D" uid="uid://3mndg2t4bq3y" path="res://sprites/lamp.png" id="24_misoq"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_xfml5"]
 tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 1, 131072, 0, 2, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 2)
@@ -594,6 +597,10 @@ texture = ExtResource("2_fl80h")
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="HangingPlant" type="Sprite2D" parent="Level/Background/Parallax2D4"]
+position = Vector2(478, 236)
+texture = ExtResource("4_hejpe")
+
 [node name="Parallax2D5" type="Parallax2D" parent="Level/Background"]
 scroll_scale = Vector2(0.4, 0.4)
 
@@ -764,5 +771,18 @@ visible = false
 shape = SubResource("RectangleShape2D_fdh75")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_w4oae")
 animation = &"walk_left"
+
+[node name="Bookshelf" type="Sprite2D" parent="."]
+position = Vector2(141, 388)
+texture = ExtResource("22_604eb")
+
+[node name="Lamp" type="Sprite2D" parent="."]
+position = Vector2(1194, 263)
+texture = ExtResource("24_misoq")
+
+[node name="Lamp2" type="Sprite2D" parent="."]
+position = Vector2(632, 375)
+texture = ExtResource("24_misoq")
