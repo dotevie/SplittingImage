@@ -1,7 +1,7 @@
-[gd_scene load_steps=83 format=4 uid="uid://bkuet8lrbw4ea"]
+[gd_scene load_steps=85 format=4 uid="uid://bkuet8lrbw4ea"]
 
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_d4nj3"]
-[ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="1_njykt"]
+[ext_resource type="Texture2D" uid="uid://bo1uggbanm8cx" path="res://sprites/tile.png" id="1_njykt"]
 [ext_resource type="Texture2D" uid="uid://c8dipe0r2hepq" path="res://sprites/wall_texture_32.png" id="2_fl80h"]
 [ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_nl2xb"]
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="2_wvvcr"]
@@ -523,11 +523,19 @@ width = 16
 height = 48
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4x76l"]
-size = Vector2(16, 8)
+size = Vector2(8, 16)
 
 [sub_resource type="Gradient" id="Gradient_pnknc"]
 offsets = PackedFloat32Array(0, 0.97333336)
 colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_us2gx"]
+gradient = SubResource("Gradient_pnknc")
+width = 8
+height = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b3ty"]
+size = Vector2(16, 8)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8vgk6"]
 gradient = SubResource("Gradient_pnknc")
@@ -542,7 +550,7 @@ default_spawn_point = NodePath("DefaultSpawnPoint")
 transition_area = NodePath("TransitionArea")
 
 [node name="DefaultSpawnPoint" type="Node2D" parent="."]
-position = Vector2(1648, 440)
+position = Vector2(48, 440)
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -723,7 +731,7 @@ shape = SubResource("RectangleShape2D_w4oae")
 texture = SubResource("GradientTexture2D_4x76l")
 
 [node name="DoorButton" type="Area2D" parent="." node_paths=PackedStringArray("door")]
-position = Vector2(1125, 208)
+position = Vector2(1124, 208)
 script = ExtResource("16_w4oae")
 door = NodePath("../Door")
 metadata/_custom_type_script = "uid://dw6wpa7oaqhe7"
@@ -732,20 +740,20 @@ metadata/_custom_type_script = "uid://dw6wpa7oaqhe7"
 shape = SubResource("RectangleShape2D_4x76l")
 
 [node name="Sprite2D" type="Sprite2D" parent="DoorButton"]
-texture = SubResource("GradientTexture2D_8vgk6")
+texture = SubResource("GradientTexture2D_us2gx")
 
 [node name="DoorButton2" type="Area2D" parent="." node_paths=PackedStringArray("door")]
-position = Vector2(1983, 161)
+position = Vector2(1983, 164)
 script = ExtResource("16_w4oae")
 door = NodePath("../Door2")
 metadata/_custom_type_script = "uid://dw6wpa7oaqhe7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorButton2"]
-shape = SubResource("RectangleShape2D_4x76l")
+shape = SubResource("RectangleShape2D_4b3ty")
 
 [node name="Sprite2D" type="Sprite2D" parent="DoorButton2"]
 texture = SubResource("GradientTexture2D_8vgk6")
 
 [node name="TransitionArea" parent="." instance=ExtResource("18_8vgk6")]
 position = Vector2(2456, 432)
-next_scene = "res://test_tiles.tscn"
+next_scene = "res://scenes/mirror_cutscene.tscn"

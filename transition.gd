@@ -8,7 +8,7 @@ func _ready():
 	instance = self
 	material.set("shader_parameter/progress", 1)
 	create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).tween_method(func(val): material.set("shader_parameter/progress", val), 1.0, 0.0, 1.5)
-	if (BaseScene.instance.transition_area != null): BaseScene.instance.transition_area.init()
+	if (BaseScene.instance != null && BaseScene.instance.transition_area != null): BaseScene.instance.transition_area.init()
 
 func on_die():
 	get_tree().reload_current_scene()

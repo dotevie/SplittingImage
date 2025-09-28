@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b64s3rh23p88u"]
+[gd_scene load_steps=12 format=3 uid="uid://b64s3rh23p88u"]
 
 [ext_resource type="Texture2D" uid="uid://c8dipe0r2hepq" path="res://sprites/wall_texture_32.png" id="1_vjb58"]
 [ext_resource type="Texture2D" uid="uid://n8v58nfrxut8" path="res://sprites/logo.png" id="2_con2f"]
@@ -6,30 +6,130 @@
 [ext_resource type="Texture2D" uid="uid://yg1etp2avf2r" path="res://sprites/exit_text.png" id="4_4ytvr"]
 [ext_resource type="Script" uid="uid://b6idgpqcfak5s" path="res://scripts/start_text.gd" id="4_g3eks"]
 [ext_resource type="Script" uid="uid://dajdokyir5noy" path="res://scripts/exit_text.gd" id="5_4ytvr"]
+[ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="7_13sgg"]
+[ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="8_i6lef"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70i5f"]
+shader = ExtResource("7_13sgg")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[sub_resource type="Gradient" id="Gradient_coq8p"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mj5lg"]
+gradient = SubResource("Gradient_coq8p")
+width = 800
+height = 480
 
 [node name="Menu" type="Node2D"]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0.310617, 0.31061715, 0.3106171, 1)
-offset_right = 800.0
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.8, 0.8)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D"]
+modulate = Color(0.29219002, 0.29219005, 0.29219002, 1)
+offset_top = 384.0
+offset_right = 2400.0
 offset_bottom = 480.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D2" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D2"]
+modulate = Color(0.25490198, 0.25490198, 0.25490198, 1)
+offset_top = 320.0
+offset_right = 2400.0
+offset_bottom = 384.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D3" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.6, 0.6)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D3"]
+modulate = Color(0.21568628, 0.21568628, 0.21568628, 1)
+offset_top = 256.0
+offset_right = 2400.0
+offset_bottom = 320.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D4" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D4"]
+modulate = Color(0.1764706, 0.1764706, 0.1764706, 1)
+offset_top = 192.0
+offset_right = 2400.0
+offset_bottom = 256.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D5" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D5"]
+modulate = Color(0.13725491, 0.13725491, 0.13725491, 1)
+offset_top = 128.0
+offset_right = 2400.0
+offset_bottom = 192.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D6" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D6"]
+modulate = Color(0.09803922, 0.09803922, 0.09803922, 1)
+offset_top = 64.0
+offset_right = 2400.0
+offset_bottom = 128.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D7" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Parallax2D7"]
+modulate = Color(0.05882353, 0.05882353, 0.05882353, 1)
+offset_right = 2400.0
+offset_bottom = 64.0
 texture = ExtResource("1_vjb58")
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(400, 120)
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 texture = ExtResource("2_con2f")
 
 [node name="StartText" type="Sprite2D" parent="."]
-position = Vector2(400, 240)
+position = Vector2(400, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("3_mhnvy")
 script = ExtResource("4_g3eks")
 
 [node name="ExitText" type="Sprite2D" parent="."]
-position = Vector2(400, 360)
+position = Vector2(400, 400)
 scale = Vector2(2, 2)
 texture = ExtResource("4_4ytvr")
 script = ExtResource("5_4ytvr")
+
+[node name="TransitionSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_70i5f")
+position = Vector2(400, 240)
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_mj5lg")
+script = ExtResource("8_i6lef")

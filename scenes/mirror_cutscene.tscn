@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://4rlnuv854tbr"]
+
+[ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="1_2hg2k"]
+[ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="2_a6hlo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8djha"]
+shader = ExtResource("1_2hg2k")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[sub_resource type="Gradient" id="Gradient_coq8p"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y4doa"]
+gradient = SubResource("Gradient_coq8p")
+width = 800
+height = 480
+
+[node name="MirrorCutscene" type="Node2D"]
+
+[node name="LeftViewport" type="SubViewportContainer" parent="."]
+offset_right = 400.0003
+offset_bottom = 480.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="LeftViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="RightViewport" type="SubViewportContainer" parent="."]
+offset_left = 800.0
+offset_right = 1200.0002
+offset_bottom = 480.0
+scale = Vector2(-1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="RightViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="TransitionSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8djha")
+position = Vector2(400, 240)
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_y4doa")
+script = ExtResource("2_a6hlo")

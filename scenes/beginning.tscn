@@ -10,12 +10,12 @@ shader = ExtResource("2_2evv7")
 shader_parameter/progress = 0.0
 shader_parameter/diamondPixelSize = 20.0
 
-[sub_resource type="Gradient" id="Gradient_coq8p"]
+[sub_resource type="Gradient" id="Gradient_2evv7"]
 offsets = PackedFloat32Array(0, 0, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2nij2"]
-gradient = SubResource("Gradient_coq8p")
+gradient = SubResource("Gradient_2evv7")
 width = 800
 height = 480
 
@@ -41,6 +41,7 @@ texture = SubResource("GradientTexture2D_2nij2")
 script = ExtResource("3_fd4qf")
 
 [node name="FPSCounter" type="Label" parent="."]
+visible = false
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 60.0

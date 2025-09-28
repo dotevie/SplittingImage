@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ckmqrvk015bss" path="res://scripts/mirror_player.gd" id="2_b18ba"]
 [ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_h08sc"]
 [ext_resource type="Script" uid="uid://c8a33ffqr4h3r" path="res://scripts/door.gd" id="4_b18ba"]
-[ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="4_xy3na"]
+[ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile_bak.png" id="4_xy3na"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
