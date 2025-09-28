@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b64s3rh23p88u"]
+[gd_scene load_steps=6 format=3 uid="uid://b64s3rh23p88u"]
 
 [ext_resource type="Texture2D" uid="uid://c8dipe0r2hepq" path="res://sprites/wall_texture_32.png" id="1_vjb58"]
 [ext_resource type="Texture2D" uid="uid://n8v58nfrxut8" path="res://sprites/logo.png" id="2_con2f"]
 [ext_resource type="Texture2D" uid="uid://duoclf34evinh" path="res://sprites/start_text.png" id="3_mhnvy"]
 [ext_resource type="Texture2D" uid="uid://yg1etp2avf2r" path="res://sprites/exit_text.png" id="4_4ytvr"]
+[ext_resource type="Script" uid="uid://dajdokyir5noy" path="res://scripts/exit_text.gd" id="5_4ytvr"]
 
 [node name="Menu" type="Node2D"]
 
@@ -29,3 +30,4 @@ texture = ExtResource("3_mhnvy")
 position = Vector2(400, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("4_4ytvr")
+script = ExtResource("5_4ytvr")
