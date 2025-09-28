@@ -25,12 +25,14 @@ func _process(_delta: float) -> void:
 	if (self.position.y >= 500):
 		BaseScene.instance.die()
 	if (_animated_sprite == null || !can_move): return;
-	if Input.is_action_pressed("ui_right") and not jumping:
-		_animated_sprite.play("walk")
+	if Input.is_action_pressed("move_right"):
 		face_left = false
-	elif Input.is_action_pressed("ui_left") and not jumping:
-		_animated_sprite.play("walk_left")
+	if Input.is_action_pressed("move_left"):
 		face_left = true
+	if Input.is_action_pressed("move_right") and not jumping:
+		_animated_sprite.play("walk")
+	elif Input.is_action_pressed("move_left") and not jumping:
+		_animated_sprite.play("walk_left")
 	elif jumping:
 		if not face_left:
 			_animated_sprite.play("jump_ascend")
