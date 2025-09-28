@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b64s3rh23p88u"]
+
+[ext_resource type="Texture2D" uid="uid://c8dipe0r2hepq" path="res://sprites/wall_texture_32.png" id="1_vjb58"]
+[ext_resource type="Texture2D" uid="uid://n8v58nfrxut8" path="res://sprites/logo.png" id="2_con2f"]
+
+[node name="Menu" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.310617, 0.31061715, 0.3106171, 1)
+offset_right = 800.0
+offset_bottom = 480.0
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(400, 100)
+scale = Vector2(2, 2)
+texture = ExtResource("2_con2f")
