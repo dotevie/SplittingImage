@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4gomfcimhq61"]
+[gd_scene load_steps=9 format=3 uid="uid://b4gomfcimhq61"]
 
 [ext_resource type="PackedScene" uid="uid://bkuet8lrbw4ea" path="res://scenes/level1_horizontal.tscn" id="1_f15ue"]
 [ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="2_2evv7"]
 [ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="3_fd4qf"]
 [ext_resource type="Script" uid="uid://bsxq1q5u5a3bj" path="res://scripts/fps_counter.gd" id="4_2evv7"]
+[ext_resource type="Texture2D" uid="uid://cegb8trwqdqa0" path="res://sprites/frame_halfscreen_stretch.png" id="5_fd4qf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sasra"]
 shader = ExtResource("2_2evv7")
@@ -32,6 +33,14 @@ size = Vector2i(400, 480)
 render_target_update_mode = 4
 
 [node name="Level1Horizontal" parent="LeftViewport/SubViewport" instance=ExtResource("1_f15ue")]
+
+[node name="Parallax2D" type="Parallax2D" parent="LeftViewport/SubViewport"]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="LeftViewport/SubViewport/Parallax2D"]
+offset_right = 400.0
+offset_bottom = 480.0
+texture = ExtResource("5_fd4qf")
 
 [node name="TransitionSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_sasra")

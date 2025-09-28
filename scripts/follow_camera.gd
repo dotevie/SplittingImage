@@ -5,8 +5,10 @@ class_name FollowCamera extends Camera2D
 @export var copy_camera:bool
 @export var snap_start:float
 @export var snap_end:float
+@export var disabled:bool
 
 func _process(delta:float) -> void:
+	if (disabled): return
 	if (copy_camera && BaseScene.instance.camera != null):
 		self.position = BaseScene.instance.camera.position
 		return

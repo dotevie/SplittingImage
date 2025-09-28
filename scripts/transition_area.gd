@@ -8,6 +8,7 @@ func init() -> void:
 func on_enter(body:Node2D) -> void:
 	print(body)
 	if (body.is_in_group("player")):
+		(body as Player).can_move = false;
 		Transition.instance.callback.connect(func(): 
 			RespawnData.spawnPoint = Vector2(-1000, 0)
 			Transition.instance.get_tree().change_scene_to_file(next_scene)

@@ -16,11 +16,15 @@ const COYOTE_TIME = 0.1
 var airborne_time: float = 0.0
 var jumping = false
 var face_left = false
+@export var can_move:bool = true
+
+func _ready() -> void:
+	_animated_sprite.play("idle")
 
 func _process(_delta: float) -> void:
 	if (self.position.y >= 500):
 		BaseScene.instance.die()
-	if (_animated_sprite == null): return;
+	if (_animated_sprite == null || !can_move): return;
 	if Input.is_action_pressed("ui_right") and not jumping:
 		_animated_sprite.play("walk")
 		face_left = false
@@ -47,6 +51,7 @@ func die():
 
 var velocity:Vector2;
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if (!can_move): return;
 	velocity = state.get_linear_velocity()
 	var step := state.get_step()
 	
