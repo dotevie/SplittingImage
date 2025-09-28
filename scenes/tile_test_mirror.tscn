@@ -131,10 +131,10 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
 gradient = SubResource("Gradient_xy3na")
 height = 16
 
-[node name="TileTestMirror" type="Node2D" node_paths=PackedStringArray("mirror_player", "linked_door", "camera")]
+[node name="TileTestMirror" type="Node2D" node_paths=PackedStringArray("mirror_player", "linked_doors", "camera")]
 script = ExtResource("1_460vc")
 mirror_player = NodePath("MirrorPlayer")
-linked_door = NodePath("Door")
+linked_doors = [NodePath("Door")]
 camera = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -15,8 +15,8 @@ var airborne_time: float = 0.0
 var jumping = false
 
 func _process(_delta: float) -> void:
-	pass
-	#cam.position.y = self.position.y;
+	if (self.position.y >= 500):
+		BaseScene.instance.die()
 	
 func die():
 	queue_free()
