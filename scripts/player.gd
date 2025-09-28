@@ -15,8 +15,8 @@ var airborne_time: float = 0.0
 var jumping = false
 
 func _process(_delta: float) -> void:
-	#pass
-	cam.position.y = self.position.y;
+	pass
+	#cam.position.y = self.position.y;
 	
 func die():
 	queue_free()

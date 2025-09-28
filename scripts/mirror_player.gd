@@ -7,7 +7,7 @@ var parent_scene:MirrorScene
 func _process(_delta) -> void:
 	if (copy_player != null):
 		self.position = copy_player.position
-		cam.position.y = copy_player.position.y
+		#cam.position.y = copy_player.position.y
 
 func die():
 	queue_free()

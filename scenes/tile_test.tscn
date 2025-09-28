@@ -1,8 +1,11 @@
-[gd_scene load_steps=20 format=4 uid="uid://crmc7ataoua4w"]
+[gd_scene load_steps=29 format=4 uid="uid://crmc7ataoua4w"]
 
 [ext_resource type="Script" uid="uid://dxq2cmwos66lv" path="res://scripts/base_scene.gd" id="1_qdkxk"]
 [ext_resource type="Script" uid="uid://jy26fic133v7" path="res://scripts/player.gd" id="2_a8qe0"]
+[ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_pnknc"]
 [ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="4_06164"]
+[ext_resource type="Script" uid="uid://c8a33ffqr4h3r" path="res://scripts/door.gd" id="4_a8qe0"]
+[ext_resource type="Script" uid="uid://dw6wpa7oaqhe7" path="res://scripts/button.gd" id="4_qdkxk"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -129,9 +132,32 @@ terrain_set_0/terrain_0/name = "Basic"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/1 = SubResource("TileSetAtlasSource_vkcgd")
 
-[node name="TileTest" type="Node2D" node_paths=PackedStringArray("player")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnknc"]
+size = Vector2(64, 16)
+
+[sub_resource type="Gradient" id="Gradient_06164"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1pref"]
+gradient = SubResource("Gradient_06164")
+height = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8qe0"]
+size = Vector2(24, 16)
+
+[sub_resource type="Gradient" id="Gradient_pnknc"]
+offsets = PackedFloat32Array(0, 0.97333336)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_06164"]
+gradient = SubResource("Gradient_pnknc")
+width = 24
+height = 16
+
+[node name="TileTest" type="Node2D" node_paths=PackedStringArray("player", "camera")]
 script = ExtResource("1_qdkxk")
 player = NodePath("Player")
+camera = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(200, 960)
@@ -160,8 +186,10 @@ scale = Vector2(0.25, 0.0020833334)
 position = Vector2(0, 0.24999619)
 shape = SubResource("RectangleShape2D_yvmk3")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
 position = Vector2(200, 100)
+script = ExtResource("2_pnknc")
+follow = NodePath("../Player")
 
 [node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
@@ -200,5 +228,29 @@ shape = SubResource("RectangleShape2D_vbogn")
 texture = SubResource("PlaceholderTexture2D_d5kir")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(0, 72)
 tile_map_data = PackedByteArray("AAAXACUAAQACAAIAAAAWACUAAQABAAIAAAAVACUAAQABAAIAAAAVACQAAQABAAEAAAAWACQAAQABAAEAAAAXACQAAQACAAEAAAAXACMAAQACAAEAAAAWACMAAQABAAEAAAAVACMAAQABAAAAAAAUACMAAQAAAAAAAAAUACQAAQAAAAEAAAAUACUAAQAAAAIAAAAWACIAAQAAAAEAAAAXACIAAQABAAEAAAAYACIAAQACAAIAAAAYACEAAQACAAAAAAAXACEAAQABAAAAAAAWACEAAQAAAAAAAAAQACIAAQACAAAAAAAPACIAAQABAAAAAAAOACIAAQABAAAAAAAOACMAAQABAAEAAAANACMAAQABAAEAAAANACIAAQABAAAAAAAPACMAAQABAAEAAAAQACMAAQACAAEAAAAQACQAAQACAAIAAAAPACQAAQABAAIAAAAOACQAAQABAAIAAAANACQAAQABAAIAAAAMACQAAQABAAIAAAAMACMAAQABAAEAAAAMACIAAQABAAAAAAALACIAAQAAAAAAAAALACMAAQAAAAEAAAALACQAAQAAAAIAAAATACcAAQACAAEAAAASACcAAQABAAAAAAARACcAAQAAAAAAAAARACgAAQAAAAIAAAASACgAAQABAAIAAAATACgAAQACAAIAAAAGACYAAQAAAAAAAAAHACYAAQABAAAAAAAIACYAAQABAAAAAAAJACYAAQABAAAAAAAKACYAAQABAAAAAAALACYAAQABAAAAAAAMACYAAQABAAAAAAANACYAAQACAAAAAAANACcAAQACAAEAAAAMACcAAQABAAEAAAALACcAAQABAAEAAAAKACcAAQABAAEAAAAJACcAAQABAAEAAAAIACcAAQABAAEAAAAHACcAAQABAAEAAAAGACcAAQAAAAEAAAAGACgAAQAAAAIAAAAHACgAAQABAAIAAAAIACgAAQABAAEAAAAJACgAAQABAAEAAAAKACgAAQABAAEAAAALACgAAQABAAEAAAAMACgAAQABAAIAAAANACgAAQACAAIAAAAKACkAAQABAAEAAAAJACkAAQABAAEAAAAIACkAAQAAAAEAAAAIACoAAQAAAAIAAAAJACoAAQABAAIAAAAKACoAAQABAAIAAAALACoAAQACAAIAAAALACkAAQACAAEAAAAPACwAAQACAAAAAAAOACwAAQABAAAAAAANACwAAQABAAAAAAAMACwAAQAAAAAAAAAMAC0AAQABAAEAAAANAC0AAQABAAEAAAAOAC0AAQABAAEAAAAPAC0AAQABAAEAAAAPAC4AAQABAAEAAAAOAC4AAQABAAEAAAANAC4AAQABAAEAAAAMAC4AAQABAAEAAAAQAC0AAQACAAAAAAAQAC4AAQACAAEAAAAQAC8AAQACAAIAAAAPAC8AAQABAAEAAAALAC0AAQAAAAAAAAALAC4AAQAAAAEAAAALAC8AAQAAAAIAAAAMAC8AAQABAAEAAAANAC8AAQABAAEAAAAOAC8AAQABAAEAAAAPADAAAQACAAIAAAAOADAAAQABAAIAAAANADAAAQABAAIAAAAMADAAAQAAAAIAAAA=")
 tile_set = SubResource("TileSet_yvmk3")
+
+[node name="Door" type="StaticBody2D" parent="."]
+position = Vector2(200, 270)
+script = ExtResource("4_a8qe0")
+metadata/_custom_type_script = "uid://c8a33ffqr4h3r"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+shape = SubResource("RectangleShape2D_pnknc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Door"]
+texture = SubResource("GradientTexture2D_1pref")
+
+[node name="DoorButton" type="Area2D" parent="." node_paths=PackedStringArray("door")]
+position = Vector2(155, 229)
+script = ExtResource("4_qdkxk")
+door = NodePath("../Door")
+metadata/_custom_type_script = "uid://dw6wpa7oaqhe7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorButton"]
+shape = SubResource("RectangleShape2D_a8qe0")
+
+[node name="Sprite2D" type="Sprite2D" parent="DoorButton"]
+texture = SubResource("GradientTexture2D_06164")

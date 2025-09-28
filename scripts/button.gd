@@ -9,3 +9,4 @@ func _ready() -> void:
 func on_body_enter(body:Node2D) -> void:
 	if (body.is_in_group("player")):
 		door.open()
+		queue_free()

@@ -1,7 +1,6 @@
-class_name Door extends Node
+class_name Door extends StaticBody2D
 
-@export var linked_door:Door
 
 func open():
-	linked_door.queue_free()
+	if (MirrorScene.instance.linked_door != null): MirrorScene.instance.linked_door.queue_free()
 	queue_free()

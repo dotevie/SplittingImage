@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4gomfcimhq61"]
+
+[ext_resource type="PackedScene" uid="uid://bkuet8lrbw4ea" path="res://scenes/level1_horizontal.tscn" id="1_f15ue"]
+[ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="2_2evv7"]
+[ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="3_fd4qf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sasra"]
+shader = ExtResource("2_2evv7")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[sub_resource type="Gradient" id="Gradient_coq8p"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2nij2"]
+gradient = SubResource("Gradient_coq8p")
+width = 800
+height = 480
+
+[node name="Node2D" type="Node2D"]
+
+[node name="LeftViewport" type="SubViewportContainer" parent="."]
+offset_left = 200.0
+offset_right = 600.0003
+offset_bottom = 480.0
+
+[node name="SubViewport" type="SubViewport" parent="LeftViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="Level1Horizontal" parent="LeftViewport/SubViewport" instance=ExtResource("1_f15ue")]
+
+[node name="TransitionSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sasra")
+position = Vector2(400, 240)
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_2nij2")
+script = ExtResource("3_fd4qf")

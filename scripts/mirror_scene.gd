@@ -2,7 +2,9 @@ class_name MirrorScene extends Node
 
 var parent_scene:BaseScene
 @export var mirror_player:MirrorPlayer
-var instance:MirrorScene
+static var instance:MirrorScene
+@export var linked_door:Door
+@export var camera:FollowCamera
 
 func init():
 	instance = self

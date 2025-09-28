@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://c43o32b6p1t5w"]
+[gd_scene load_steps=25 format=4 uid="uid://c43o32b6p1t5w"]
 
 [ext_resource type="Script" uid="uid://deqbu2ovcw5mj" path="res://scripts/mirror_scene.gd" id="1_460vc"]
 [ext_resource type="Script" uid="uid://ckmqrvk015bss" path="res://scripts/mirror_player.gd" id="2_b18ba"]
-[ext_resource type="Script" uid="uid://dvsintgdwha4s" path="res://scripts/spike.gd" id="3_h08sc"]
-[ext_resource type="Texture2D" uid="uid://doufm1s6vp0nr" path="res://sprites/tile.png" id="4_xy3na"]
+[ext_resource type="Script" uid="uid://dgn60qm5pvpom" path="res://scripts/follow_camera.gd" id="2_h08sc"]
+[ext_resource type="Script" uid="uid://c8a33ffqr4h3r" path="res://scripts/door.gd" id="4_b18ba"]
+[ext_resource type="Texture2D" uid="uid://cx4xdwqe87gvn" path="res://sprites/tile.png" id="4_xy3na"]
 
 [sub_resource type="Gradient" id="Gradient_8m37a"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -58,18 +59,7 @@ size = Vector2(192, 24)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d5kir"]
 size = Vector2(192, 24)
 
-[sub_resource type="Gradient" id="Gradient_rit06"]
-colors = PackedColorArray(1, 0.33333334, 0, 1, 1, 0.33333334, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_plvai"]
-gradient = SubResource("Gradient_rit06")
-width = 32
-height = 32
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkcgd"]
-size = Vector2(32, 32)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkcgd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xy3na"]
 texture = ExtResource("4_xy3na")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
@@ -129,11 +119,23 @@ tile_size = Vector2i(8, 8)
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Basic"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
-sources/1 = SubResource("TileSetAtlasSource_vkcgd")
+sources/1 = SubResource("TileSetAtlasSource_xy3na")
 
-[node name="TileTestMirror" type="Node2D" node_paths=PackedStringArray("mirror_player")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h08sc"]
+size = Vector2(64, 16)
+
+[sub_resource type="Gradient" id="Gradient_xy3na"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sd8hy"]
+gradient = SubResource("Gradient_xy3na")
+height = 16
+
+[node name="TileTestMirror" type="Node2D" node_paths=PackedStringArray("mirror_player", "linked_door", "camera")]
 script = ExtResource("1_460vc")
 mirror_player = NodePath("MirrorPlayer")
+linked_door = NodePath("Door")
+camera = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(200, 960)
@@ -162,8 +164,11 @@ scale = Vector2(0.25, 0.0020833334)
 position = Vector2(0, 0.24999619)
 shape = SubResource("RectangleShape2D_yvmk3")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
 position = Vector2(200, 100)
+script = ExtResource("2_h08sc")
+follow = NodePath("../MirrorPlayer")
+copy_camera = true
 
 [node name="MirrorPlayer" type="RigidBody2D" parent="." node_paths=PackedStringArray("cam") groups=["player"]]
 position = Vector2(300, 100)
@@ -201,21 +206,18 @@ shape = SubResource("RectangleShape2D_vbogn")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 texture = SubResource("PlaceholderTexture2D_d5kir")
 
-[node name="HazardTest" type="Area2D" parent="."]
-position = Vector2(57, 236)
-rotation = 0.7853982
-collision_layer = 4
-script = ExtResource("3_h08sc")
-
-[node name="Sprite2D" type="Sprite2D" parent="HazardTest"]
-visible = false
-scale = Vector2(0.99999994, 0.99999994)
-texture = SubResource("GradientTexture2D_plvai")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardTest"]
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_vkcgd")
-
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(0, 72)
 tile_map_data = PackedByteArray("AAAXACUAAQACAAIAAAAWACUAAQABAAIAAAAVACUAAQABAAIAAAAVACQAAQABAAEAAAAWACQAAQABAAEAAAAXACQAAQACAAEAAAAXACMAAQACAAEAAAAWACMAAQABAAEAAAAVACMAAQABAAAAAAAUACMAAQAAAAAAAAAUACQAAQAAAAEAAAAUACUAAQAAAAIAAAAWACIAAQAAAAEAAAAXACIAAQABAAEAAAAYACIAAQACAAIAAAAYACEAAQACAAAAAAAXACEAAQABAAAAAAAWACEAAQAAAAAAAAAQACIAAQACAAAAAAAPACIAAQABAAAAAAAOACIAAQABAAAAAAAOACMAAQABAAEAAAANACMAAQABAAEAAAANACIAAQABAAAAAAAPACMAAQABAAEAAAAQACMAAQACAAEAAAAQACQAAQACAAIAAAAPACQAAQABAAIAAAAOACQAAQABAAIAAAANACQAAQABAAIAAAAMACQAAQABAAIAAAAMACMAAQABAAEAAAAMACIAAQABAAAAAAALACIAAQAAAAAAAAALACMAAQAAAAEAAAALACQAAQAAAAIAAAATACcAAQACAAEAAAASACcAAQABAAAAAAARACcAAQAAAAAAAAARACgAAQAAAAIAAAASACgAAQABAAIAAAATACgAAQACAAIAAAAGACYAAQAAAAAAAAAHACYAAQABAAAAAAAIACYAAQABAAAAAAAJACYAAQABAAAAAAAKACYAAQABAAAAAAALACYAAQABAAAAAAAMACYAAQABAAAAAAANACYAAQACAAAAAAANACcAAQACAAEAAAAMACcAAQABAAEAAAALACcAAQABAAEAAAAKACcAAQABAAEAAAAJACcAAQABAAEAAAAIACcAAQABAAEAAAAHACcAAQABAAEAAAAGACcAAQAAAAEAAAAGACgAAQAAAAIAAAAHACgAAQABAAIAAAAIACgAAQABAAEAAAAJACgAAQABAAEAAAAKACgAAQABAAEAAAALACgAAQABAAEAAAAMACgAAQABAAIAAAANACgAAQACAAIAAAAKACkAAQABAAEAAAAJACkAAQABAAEAAAAIACkAAQAAAAEAAAAIACoAAQAAAAIAAAAJACoAAQABAAIAAAAKACoAAQABAAIAAAALACoAAQACAAIAAAALACkAAQACAAEAAAAPACwAAQACAAAAAAAOACwAAQABAAAAAAANACwAAQABAAAAAAAMACwAAQAAAAAAAAAMAC0AAQABAAEAAAANAC0AAQABAAEAAAAOAC0AAQABAAEAAAAPAC0AAQABAAEAAAAPAC4AAQABAAEAAAAOAC4AAQABAAEAAAANAC4AAQABAAEAAAAMAC4AAQABAAEAAAAQAC0AAQACAAAAAAAQAC4AAQACAAEAAAAQAC8AAQACAAIAAAAPAC8AAQABAAEAAAALAC0AAQAAAAAAAAALAC4AAQAAAAEAAAALAC8AAQAAAAIAAAAMAC8AAQABAAEAAAANAC8AAQABAAEAAAAOAC8AAQABAAEAAAAPADAAAQACAAIAAAAOADAAAQABAAIAAAANADAAAQABAAIAAAAMADAAAQAAAAIAAAA=")
 tile_set = SubResource("TileSet_yvmk3")
+
+[node name="Door" type="StaticBody2D" parent="."]
+position = Vector2(200, 270)
+script = ExtResource("4_b18ba")
+metadata/_custom_type_script = "uid://c8a33ffqr4h3r"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+shape = SubResource("RectangleShape2D_h08sc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Door"]
+texture = SubResource("GradientTexture2D_sd8hy")
