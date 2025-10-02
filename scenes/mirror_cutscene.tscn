@@ -65,10 +65,13 @@ render_target_update_mode = 4
 
 [node name="Parallax2D" type="Parallax2D" parent="RightViewport/SubViewport"]
 scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(-195, 247)
 
 [node name="TextureRect" type="TextureRect" parent="RightViewport/SubViewport/Parallax2D"]
-offset_right = 400.0
-offset_bottom = 480.0
+offset_left = 195.0
+offset_top = -247.0
+offset_right = 595.0
+offset_bottom = 233.0
 texture = ExtResource("5_fiwse")
 
 [node name="TransitionSprite" type="Sprite2D" parent="."]

@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://cct4olqr77uym"]
+
+[ext_resource type="PackedScene" uid="uid://dbtkririx4d5k" path="res://scenes/level1_vertical.tscn" id="1_of17m"]
+[ext_resource type="Texture2D" uid="uid://cegb8trwqdqa0" path="res://sprites/frame_halfscreen_stretch.png" id="2_dqcu2"]
+[ext_resource type="PackedScene" uid="uid://bh8xx4sim4rgw" path="res://scenes/level1_vertical_mirror.tscn" id="3_dqcu2"]
+[ext_resource type="Texture2D" uid="uid://cdc8skvtadypt" path="res://sprites/frame_halfscreen_stretch_orange.png" id="3_qcgw0"]
+[ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="4_beuup"]
+[ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="5_voar0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0affd"]
+shader = ExtResource("4_beuup")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[sub_resource type="Gradient" id="Gradient_coq8p"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k7fyj"]
+gradient = SubResource("Gradient_coq8p")
+width = 800
+height = 480
+
+[node name="Level1VerticalOut" type="Node2D"]
+
+[node name="LeftViewport" type="SubViewportContainer" parent="."]
+offset_right = 400.0003
+offset_bottom = 480.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="LeftViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="Level1Vertical" parent="LeftViewport/SubViewport" node_paths=PackedStringArray("mirror_scene") instance=ExtResource("1_of17m")]
+mirror_scene = NodePath("../../../RightViewport/SubViewport/Level1Vertical")
+
+[node name="Parallax2D" type="Parallax2D" parent="LeftViewport/SubViewport"]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="LeftViewport/SubViewport/Parallax2D"]
+offset_right = 400.0
+offset_bottom = 480.0
+texture = ExtResource("2_dqcu2")
+
+[node name="RightViewport" type="SubViewportContainer" parent="."]
+offset_left = 800.0
+offset_right = 1200.0002
+offset_bottom = 480.0
+scale = Vector2(-1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="RightViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="Level1Vertical" parent="RightViewport/SubViewport" instance=ExtResource("3_dqcu2")]
+
+[node name="Parallax2D" type="Parallax2D" parent="RightViewport/SubViewport"]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="RightViewport/SubViewport/Parallax2D"]
+offset_right = 400.0
+offset_bottom = 480.0
+texture = ExtResource("3_qcgw0")
+
+[node name="TransitionSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0affd")
+position = Vector2(400, 240)
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_k7fyj")
+script = ExtResource("5_voar0")

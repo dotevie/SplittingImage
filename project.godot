@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SplittingImage"
-run/main_scene="uid://dbtkririx4d5k"
+run/main_scene="uid://b64s3rh23p88u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

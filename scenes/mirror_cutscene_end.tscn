@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://c2x1ge60t7un4"]
+
+[ext_resource type="Script" uid="uid://ceqy4535hihwj" path="res://scripts/big_scene.gd" id="1_7pmdt"]
+[ext_resource type="PackedScene" uid="uid://snektl8r8fgr" path="res://scenes/mirror_inner_end.tscn" id="2_agbmn"]
+[ext_resource type="Texture2D" uid="uid://cegb8trwqdqa0" path="res://sprites/frame_halfscreen_stretch.png" id="3_lyymx"]
+[ext_resource type="PackedScene" uid="uid://dtue1hijvs1hx" path="res://scenes/mirror_inner__endmirror.tscn" id="5_7pmdt"]
+[ext_resource type="Texture2D" uid="uid://cdc8skvtadypt" path="res://sprites/frame_halfscreen_stretch_orange.png" id="5_bv2to"]
+[ext_resource type="Shader" uid="uid://bxq0vj0jx1i6r" path="res://shaders/transition.gdshader" id="6_nloi5"]
+[ext_resource type="Script" uid="uid://c2b43552fq1q1" path="res://transition.gd" id="7_capql"]
+[ext_resource type="AudioStream" uid="uid://bnt3psihuje7" path="res://SourceFiles/credits_ost.wav" id="8_qa4h3"]
+[ext_resource type="Script" uid="uid://b32mw8ip6pwbl" path="res://scripts/ending.gd" id="9_lyymx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8djha"]
+shader = ExtResource("6_nloi5")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[sub_resource type="Gradient" id="Gradient_coq8p"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y4doa"]
+gradient = SubResource("Gradient_coq8p")
+width = 800
+height = 480
+
+[node name="MirrorCutscene" type="Node2D" node_paths=PackedStringArray("left_viewport_container", "right_viewport_container")]
+script = ExtResource("1_7pmdt")
+left_viewport_container = NodePath("LeftViewport")
+right_viewport_container = NodePath("RightViewport")
+
+[node name="LeftViewport" type="SubViewportContainer" parent="."]
+offset_right = 400.0003
+offset_bottom = 480.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="LeftViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="MirrorInner" parent="LeftViewport/SubViewport" instance=ExtResource("2_agbmn")]
+
+[node name="Parallax2D" type="Parallax2D" parent="LeftViewport/SubViewport"]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="LeftViewport/SubViewport/Parallax2D"]
+offset_right = 400.0
+offset_bottom = 480.0
+texture = ExtResource("3_lyymx")
+
+[node name="RightViewport" type="SubViewportContainer" parent="."]
+offset_left = 800.0
+offset_right = 1200.0002
+offset_bottom = 480.0
+scale = Vector2(-1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="RightViewport"]
+handle_input_locally = false
+size = Vector2i(400, 480)
+render_target_update_mode = 4
+
+[node name="MirrorInnerMirror" parent="RightViewport/SubViewport" instance=ExtResource("5_7pmdt")]
+
+[node name="Parallax2D" type="Parallax2D" parent="RightViewport/SubViewport"]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="RightViewport/SubViewport/Parallax2D"]
+offset_right = 400.0
+offset_bottom = 480.0
+texture = ExtResource("5_bv2to")
+
+[node name="TransitionSprite" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_8djha")
+position = Vector2(400, 240)
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_y4doa")
+script = ExtResource("7_capql")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qa4h3")
+
+[node name="Ending" type="Node" parent="." node_paths=PackedStringArray("credits", "player")]
+script = ExtResource("9_lyymx")
+credits = NodePath("../Credits")
+player = NodePath("../AudioStreamPlayer2D")
+metadata/_custom_type_script = "uid://b32mw8ip6pwbl"
+
+[node name="Credits" type="Node2D" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="Credits"]
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 229.0
+offset_bottom = 204.0
+text = "SPLITTING IMAGE
+
+coding, music: evelyn
+coding, level design: chase
+art, animation: nia
+art: sylvia
+art, animation: alex"

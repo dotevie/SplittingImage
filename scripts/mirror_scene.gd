@@ -21,3 +21,6 @@ func specific_function_for_literally_one_thing():
 	create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN).tween_property(level, "modulate:g", color.g, 2.5)
 	create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN).tween_property(level, "modulate:b", color.b, 2.5)
 	
+func do_it_back():
+	create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN).tween_property(level, "modulate:s", 0, 2.5)
+	create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN).tween_property(level, "modulate:v", 1, 2.5)
